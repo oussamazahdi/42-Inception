@@ -1,0 +1,19 @@
+version: '2.13.0'
+
+services:
+  nginx:
+    image: #add image pathe here
+    ports:
+      - 443:443
+    environment:
+      - name=value
+
+  Mariadb:
+
+
+
+secrets:
+  db_password:
+    file: #password file path
+
+

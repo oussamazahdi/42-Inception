@@ -1,8 +1,8 @@
-FROM debian:latest
+FROM debian:bookworm
 
-RUN apt update && apt install -y \
+RUN apt update -y && apt upgrade -y \
+    && apt install -y \
     nginx \
-    vim \
     openssl \
     && apt clean \
     && mkdir -p /etc/nginx/ssl \

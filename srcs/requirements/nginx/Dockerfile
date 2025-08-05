@@ -4,6 +4,7 @@ RUN apt update -y && apt upgrade -y \
     && apt install -y \
     nginx \
     openssl \
+    vim \
     && apt clean \
     && mkdir -p /etc/nginx/ssl \
     && openssl req -x509 -nodes -days 365 \

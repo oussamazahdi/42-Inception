@@ -12,4 +12,4 @@ COPY tools/Script.sh /home/
 
 RUN chmod +x /home/Script.sh
 
-# CMD [ "./Script.sh" ] n
+# CMD [ "Script.sh" ]

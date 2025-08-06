@@ -12,4 +12,8 @@ COPY tools/Script.sh /home/
 
 RUN chmod +x /home/Script.sh
 
+<<<<<<< HEAD
 CMD [ "Script.sh" ]
+=======
+# CMD [ "Script.sh" ]
+>>>>>>> 183bbe99ad54138fd8829dae9ee5332ca74a3638

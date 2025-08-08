@@ -1,45 +1,75 @@
 version: '3.8'
+
 services:
-  nginx:
-    build: requirements/nginx/.
-    image: nginx
-    container_name: nginx
-    env_file: .env
-    ports:
-      - "80:80"
-    depends_on: wordpress
-    # volumes:
-    restart: on-failure
+  mariadb:
+    build: 
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    image: mariadb
+    container_name: mariadb
+    restart: always
     networks:
       - inception
+    volumes:
+      - mariadb:/var/lib/mysql
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
-  # wordpress:
-  #   build: requirements/nginx/.
-  #   container_name: wordpress
+  wordpress:
+    build: 
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    image: wordpress
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    restart: always
+    networks:
+      - inception
+    volumes:
+      - wordpress:/var/www/html
+    env_file:
+      - .env
 
+  nginx:
+    build: 
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    image: nginx
+    container_name: nginx
+    depends_on:
+      - wordpress
+    restart: always
+    networks:
+      - inception
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/html
+    env_file:
+      - .env
 
-secrets:
-  MYSQL_PASSWORD: ../secrets/db_password.txt
-  MYSQL_ROOT_PASSWORD: ../secrets/db_root_password.txt
-  WP_USER_PASSWORD: ../secrets/credentials.txt.txt
+networks:
+  inception:
+    driver: bridge
 
 volumes:
   wordpress:
     driver: local
     driver_opts:
-      type: 'none'
-      o: 'bind'
+      type: none
+      o: bind
       device: /Users/ozahdi/goinfre/docker/wordpress
   
   mariadb:
     driver: local
     driver_opts:
-      type: 'none'
-      o: 'bind'
+      type: none
+      o: bind
       device: /Users/ozahdi/goinfre/docker/mariadb
-
-
-
-networks:
-  inception:
-    driver: bridge

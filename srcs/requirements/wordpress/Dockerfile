@@ -13,7 +13,7 @@ COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 COPY tools/setup.sh /usr/local/bin/setup.sh
 
-RUN chmod +777 /usr/local/bin/setup.sh
+RUN chmod +x /usr/local/bin/setup.sh
 
 RUN useradd -r -s /bin/false inception && \
     mkdir -p /var/www/html && \

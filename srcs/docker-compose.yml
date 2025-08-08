@@ -4,12 +4,23 @@ services:
     build: requirements/nginx/.
     image: nginx
     container_name: nginx
-    env_file: ../.env
+    env_file: .env
     ports:
       - "80:80"
+    depends_on: wordpress
     restart: on-failure
-    #add depend on command here to depende on wordpress
-  
+    networks:
+      - inception
+
   # wordpress:
   #   build: requirements/nginx/.
   #   container_name: wordpress
+
+
+secrets:
+
+volumes:
+
+networks:
+  inception:
+    driver: bridge

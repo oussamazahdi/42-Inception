@@ -8,6 +8,7 @@ services:
     ports:
       - "80:80"
     depends_on: wordpress
+    # volumes:
     restart: on-failure
     networks:
       - inception
@@ -18,8 +19,26 @@ services:
 
 
 secrets:
+  MYSQL_PASSWORD: ../secrets/db_password.txt
+  MYSQL_ROOT_PASSWORD: ../secrets/db_root_password.txt
+  WP_USER_PASSWORD: ../secrets/credentials.txt.txt
 
 volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /Users/ozahdi/goinfre/docker/wordpress
+  
+  mariadb:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /Users/ozahdi/goinfre/docker/mariadb
+
+
 
 networks:
   inception:

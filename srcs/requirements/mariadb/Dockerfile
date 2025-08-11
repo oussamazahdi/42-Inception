@@ -4,7 +4,8 @@ FROM debian:bullseye
 # Install MariaDB server and client
 RUN apt-get update && apt-get install -y \
     mariadb-server \
-    mariadb-client
+    mariadb-client \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy MariaDB configuration
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
@@ -26,6 +27,8 @@ RUN mkdir -p /var/lib/mysql && \
 
 # Set working directory
 WORKDIR /var/lib/mysql
+
+EXPOSE 3306
 
 # Run setup script
 ENTRYPOINT ["/usr/local/bin/setup.sh"]

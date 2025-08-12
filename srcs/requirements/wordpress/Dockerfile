@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir -p /run/php
 
-COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 COPY tools/setup.sh /usr/local/bin/setup.sh
 

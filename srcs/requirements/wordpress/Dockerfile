@@ -21,4 +21,6 @@ RUN useradd -r -s /bin/false inception && \
 
 WORKDIR /var/www/html
 
-ENTRYPOINT ["/usr/local/bin/setup.sh"]
+EXPOSE 9000
+
+CMD [ "setup.sh" ]

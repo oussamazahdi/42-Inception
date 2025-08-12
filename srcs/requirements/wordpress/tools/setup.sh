@@ -9,17 +9,16 @@ echo "Waiting for MariaDB..."
 echo "MariaDB is ready!"
 
 if [ ! -f /var/www/html/wp-config.php ]; then
-	echo "Setting up WordPress..."
 
 	wget https://wordpress.org/latest.tar.gz -O /tmp/wordpress.tar.gz
 	tar -xzf /tmp/wordpress.tar.gz -C /tmp
 	cp -R /tmp/wordpress/* /var/www/html/
 	rm -rf /tmp/wordpress*
 
-	wget https://raw.githubusercontent.com/wp-cli/wp-cli/main/phar/wp-cli.phar -O /usr/local/bin/wp
+	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /usr/local/bin/wp
 	chmod +x /usr/local/bin/wp
 
-	cd /var/www/html
+	# cd /var/www/html
 	wp config create \
 		--dbname=$MYSQL_DATABASE \
 		--dbuser=$MYSQL_USER \
@@ -40,7 +39,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		--user_pass=$WP_USER_PASSWORD \
 		--allow-root
 
-	chown -R wordpress:wordpress /var/www/html
+	chown -R inception:inception /var/www/html
 	find /var/www/html -type d -exec chmod 755 {} \;
 	find /var/www/html -type f -exec chmod 644 {} \;
 fi

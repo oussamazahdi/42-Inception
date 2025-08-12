@@ -28,7 +28,7 @@ RUN mkdir -p /var/lib/mysql && \
 # Set working directory
 WORKDIR /var/lib/mysql
 
-EXPOSE 3306
+# EXPOSE 3306
 
 # Run setup script
 ENTRYPOINT ["/usr/local/bin/setup.sh"]

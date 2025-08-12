@@ -21,6 +21,6 @@ RUN useradd -r -s /bin/false inception && \
 
 WORKDIR /var/www/html
 
-# EXPOSE 9000
+EXPOSE 9000
 
 CMD [ "setup.sh" ]

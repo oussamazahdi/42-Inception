@@ -12,11 +12,10 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
     -subj "/CN=ozahdi.42.fr/UID=ozahdi"
 
 
-COPY ./index.html /var/www/html/
-COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
-
-RUN mkdir -p /run/nginx
+# COPY ./index.html /var/www/html/index.html
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
+

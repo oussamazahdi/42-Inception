@@ -8,6 +8,7 @@ echo "Waiting for MariaDB..."
 	done
 echo "MariaDB is ready!"
 
+
 if [ ! -f /var/www/html/wp-config.php ]; then
 
 	wget https://wordpress.org/latest.tar.gz -O /tmp/wordpress.tar.gz
@@ -18,13 +19,14 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /usr/local/bin/wp
 	chmod +x /usr/local/bin/wp
 
-	# cd /var/www/html
+	cd /var/www/html
 	wp config create \
 		--dbname=$MYSQL_DATABASE \
 		--dbuser=$MYSQL_USER \
 		--dbpass=$MYSQL_PASSWORD \
 		--dbhost=mariadb:3306 \
-		--allow-root
+		--allow-root \
+		--path=/var/www/html
 
 	wp core install \
 		--url=$DOMAIN_NAME \
@@ -32,12 +34,14 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		--admin_user=$WP_ADMIN_USER \
 		--admin_password=$WP_ADMIN_PASSWORD \
 		--admin_email=$WP_ADMIN_EMAIL \
-		--allow-root
+		--allow-root \
+		--path=/var/www/html
 
 	wp user create $WP_USER $WP_USER_EMAIL \
 		--role=editor \
 		--user_pass=$WP_USER_PASSWORD \
-		--allow-root
+		--allow-root \
+		--path=/var/www/html
 
 	chown -R inception:inception /var/www/html
 	find /var/www/html -type d -exec chmod 755 {} \;

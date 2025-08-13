@@ -20,7 +20,7 @@ build:
 
 up:
 	@echo "$(GREEN)Starting services...$(NC)"
-	@docker-compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d
+	@docker-compose -p "" -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d
 
 down:
 	@echo "$(RED)Stopping services...$(NC)"

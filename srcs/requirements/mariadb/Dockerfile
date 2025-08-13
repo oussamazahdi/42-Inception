@@ -1,4 +1,3 @@
-# srcs/requirements/mariadb/Dockerfile
 FROM debian:bullseye
 
 # Install MariaDB server and client
@@ -21,9 +20,9 @@ RUN mkdir -p /var/run/mysqld && \
     chmod 755 /var/run/mysqld
 
 # Create directory for MariaDB data
-RUN mkdir -p /var/lib/mysql && \
-    chown -R mysql:mysql /var/lib/mysql && \
-    chmod 755 /var/lib/mysql
+# RUN mkdir -p /var/lib/mysql && \
+#     chown -R mysql:mysql /var/lib/mysql && \
+#     chmod 755 /var/lib/mysql
 
 # Set working directory
 WORKDIR /var/lib/mysql
@@ -32,3 +31,4 @@ WORKDIR /var/lib/mysql
 
 # Run setup script
 ENTRYPOINT ["/usr/local/bin/setup.sh"]
+# CMD ["setup.sh"]

@@ -16,7 +16,7 @@ build:
 	@echo "$(BLUE)Building Docker images...$(NC)"
 	@mkdir -p /home/$(USER)/data/wordpress
 	@mkdir -p /home/$(USER)/data/mariadb
-	@docker-compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) build
+	@docker-compose -p "" -f $(COMPOSE_FILE) --env-file $(ENV_FILE) build
 
 up:
 	@echo "$(GREEN)Starting services...$(NC)"

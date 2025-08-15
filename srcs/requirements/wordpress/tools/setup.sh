@@ -2,11 +2,12 @@
 
 set -e
 
-echo "Waiting for MariaDB..."
 	while ! nc -z mariadb 3306; do
-	  sleep 1
+		sleep 1
 	done
-echo "MariaDB is ready!"
+	while ! nc -z redis 6379; do
+		sleep 1
+	done
 
 
 if [ ! -f /var/www/html/wp-config.php ]; then
@@ -47,7 +48,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp config set WP_REDIS_PORT 6379 --raw --allow-root
 	wp config set WP_CACHE_KEY_SALT "${DOMAIN_NAME}" --allow-root
 	# wp config set WP_REDIS_PASSWORD "${REDIS_PASSWORD}" --allow-root
-	wp config set WP_REDIS_CLIENT "${REDIS_USER}" --allow-root
+	# wp config set WP_REDIS_CLIENT "${REDIS_USER}" --allow-root
 	
 	wp config set WP_CACHE true --raw --allow-root
 

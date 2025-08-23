@@ -44,11 +44,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		--allow-root \
 		--path=/var/www/html
 
-
-	# wp config set FS_METHOD direct --allow-root --path=/var/www/html/wordpress
-	# wp config set WP_REDIS_HOST "${REDIS_HOST}" --allow-root --path=/var/www/html/wordpress
-	# wp config set WP_REDIS_PORT 6379 --raw --allow-root --path=/var/www/html/wordpress
-	# wp config set WP_REDIS_DATABASE $WP_REDIS_DATABASE 6379 --raw --allow-root --path=/var/www/html/wordpress
 	wp config set WP_REDIS_HOST "${REDIS_HOST}" --allow-root
 	wp config set WP_REDIS_PORT 6379 --raw --allow-root
 	wp config set WP_CACHE_KEY_SALT "${DOMAIN_NAME}" --allow-root

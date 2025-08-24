@@ -3,7 +3,7 @@
 set -e
 service mariadb start
 
-while ! mysqladmin ping -h localhost --silent; do
+while ! mysqladmin ping -h ozahdi.42.fr --silent; do
     sleep 1
 done
 

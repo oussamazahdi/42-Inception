@@ -2,13 +2,12 @@
 
 set -e
 
-	while ! nc -z mariadb 3306; do
-		sleep 1
-	done
-	while ! nc -z redis 6379; do
-		sleep 1
-	done
-
+while ! nc -z mariadb 3306; do
+	sleep 1
+done
+while ! nc -z redis 6379; do
+	sleep 1
+done
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 

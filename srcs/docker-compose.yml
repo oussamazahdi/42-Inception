@@ -49,6 +49,57 @@ services:
       - inception
     env_file:
       - .env
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp
+    ports:
+      - "21:21"
+      - "20:20"
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    env_file:
+      - .env
+    volumes:
+      - wordpress:/var/www/html
+    restart: on-failure
+  
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer
+    depends_on:
+      - mariadb
+    ports:
+      - "5000:5000"
+    networks:
+      - inception
+    restart: on-failure
+  
+  static:
+    container_name: static
+    build: ./requirements/bonus/static
+    depends_on:
+      - nginx
+      - wordpress
+      - mariadb
+    ports:
+      - "127.0.0.1:1024:1024"
+    networks:
+      - inception
+    restart: on-failure
+
+  portainer:
+    container_name: portainer
+    build: ./requirements/bonus/portainer
+    ports:
+      - "9000:9000"
+    networks:
+      - inception
+    restart: on-failure
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer:/data
 
 volumes:
   wordpress:
@@ -56,13 +107,22 @@ volumes:
     driver_opts:
       type: none
       o: 'bind'
-      device: /home/${USER}/data/wordpress
+      device: /home/ozahdi/data/wordpress
+  
   mariadb:
     driver: local
     driver_opts:
       type: none
       o: 'bind'
-      device: /home/${USER}/data/mariadb
+      device: /home/ozahdi/data/mariadb
+  
+  portainer:
+    name: portainer
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ozahdi/data/portainer
+      o: bind
 
 networks:
   inception:

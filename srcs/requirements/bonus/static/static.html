@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acme — Modern Starter Landing Page</title>
+  <meta name="description" content="A clean, responsive HTML + CSS landing page template." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #0f1530;
+      --card: #111836;
+      --text: #e6e9f2;
+      --muted: #b6bed3;
+      --brand: #7c5cff;
+      --brand-2: #20e3b2;
+      --ring: rgba(124, 92, 255, 0.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 16px;
+      --radius-lg: 24px;
+      --container: 1200px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f7f8fd;
+        --bg-soft: #ffffff;
+        --card: #ffffff;
+        --text: #0e1320;
+        --muted: #5b6478;
+        --ring: rgba(124, 92, 255, 0.25);
+      }
+      body { background-image: radial-gradient(1000px 500px at 10% -10%, #e9ecff, transparent), radial-gradient(800px 400px at 110% 10%, #e7fff7, transparent); }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 600px at -10% -20%, #111733, transparent), radial-gradient(900px 500px at 110% -10%, #0f1a3f, transparent), var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(120%) blur(12px);
+      background: linear-gradient(180deg, rgba(12,16,35,.7), rgba(12,16,35,0));
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; padding: 16px 0;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; }
+    .logo { width: 28px; height: 28px; border-radius: 8px; background:
+      conic-gradient(from 180deg at 50% 50%, var(--brand), var(--brand-2), var(--brand));
+      box-shadow: 0 6px 18px rgba(32, 227, 178, .3), 0 6px 18px rgba(124, 92, 255, .25) inset;
+    }
+    .menu { display: flex; align-items: center; gap: 18px; }
+    .menu a { color: var(--muted); font-weight: 500; }
+    .cta {
+      padding: 10px 16px; border-radius: 999px; font-weight: 600;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      color: white; box-shadow: var(--shadow);
+    }
+
+    /* Mobile nav */
+    .hamburger { display: none; width: 36px; height: 36px; border-radius: 10px; border: 1px solid rgba(255,255,255,.1); background: transparent; color: var(--text); }
+    @media (max-width: 860px) {
+      .menu { display: none; }
+      .hamburger { display: inline-grid; place-items: center; }
+    }
+
+    /* Hero */
+    .hero { position: relative; padding: 96px 0 64px; overflow: hidden; }
+    .hero .backdrop { position: absolute; inset: -20% -40% auto auto; width: 900px; height: 900px; background:
+      radial-gradient(closest-side, rgba(32,227,178,.14), transparent),
+      radial-gradient(closest-side, rgba(124,92,255,.18), transparent);
+      filter: blur(30px); pointer-events: none;
+    }
+    .hero-grid { display: grid; align-items: center; grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; font-weight: 600; color: var(--muted); background: rgba(255,255,255,.06); padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--brand-2); box-shadow: 0 0 0 6px rgba(32,227,178,.12); }
+    h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.08; margin: 12px 0 12px; letter-spacing: -0.02em; }
+    .lead { font-size: clamp(16px, 2.2vw, 20px); color: var(--muted); margin-bottom: 24px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { padding: 12px 18px; border-radius: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,.14); background: var(--bg-soft); color: var(--text); }
+    .btn.primary { background: linear-gradient(90deg, var(--brand), var(--brand-2)); border: none; color: #fff; }
+
+    .showcase {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: var(--radius-lg);
+      padding: 14px; box-shadow: var(--shadow);
+    }
+    .mock { aspect-ratio: 16 / 10; border-radius: 12px; background:
+      linear-gradient(135deg, rgba(124,92,255,.3), rgba(32,227,178,.25));
+      display: grid; place-items: center; font-weight: 700; letter-spacing: .12em; color: rgba(255,255,255,.9);
+    }
+
+    @media (max-width: 990px) { .hero-grid { grid-template-columns: 1fr; } }
+
+    /* Section */
+    section { padding: 72px 0; }
+    .section-title { text-align: center; margin-bottom: 10px; font-size: clamp(24px, 4vw, 36px); }
+    .section-lead { text-align: center; margin: 0 auto 32px; color: var(--muted); max-width: 720px; }
+
+    /* Features */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); padding: 22px; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .card h3 { margin: 10px 0 8px; }
+    .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .18em; color: var(--brand-2); font-weight: 700; }
+    .card p { color: var(--muted); }
+    .icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(124,92,255,.18), rgba(32,227,178,.18)); border: 1px solid rgba(255,255,255,.14); }
+    @media (max-width: 990px) { .features { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .features { grid-template-columns: 1fr; } }
+
+    /* Showcase band */
+    .band {
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; align-items: center;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: var(--radius-lg);
+      padding: 24px; box-shadow: var(--shadow);
+    }
+    @media (max-width: 990px) { .band { grid-template-columns: 1fr; } }
+
+    /* Pricing */
+    .pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+    .price { display: flex; flex-direction: column; gap: 16px; }
+    .price .amount { font-size: 40px; font-weight: 800; letter-spacing: -0.02em; }
+    .price ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; color: var(--muted); }
+    .price li::before { content: "✓"; margin-right: 8px; }
+    .price .btn { margin-top: auto; text-align: center; }
+    .price.featured { border: 2px solid var(--brand); transform: translateY(-6px); }
+    @media (max-width: 990px) { .pricing { grid-template-columns: 1fr; } .price.featured { transform: none; } }
+
+    /* FAQ */
+    details { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding: 14px 18px; }
+    details + details { margin-top: 12px; }
+    summary { cursor: pointer; font-weight: 600; }
+    summary::marker { color: var(--brand); }
+    details p { color: var(--muted); margin: 8px 0 0; }
+
+    /* Contact */
+    form { display: grid; gap: 12px; }
+    input, textarea { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: var(--bg-soft); color: var(--text); }
+    input:focus, textarea:focus { outline: none; box-shadow: 0 0 0 4px var(--ring); border-color: var(--brand); }
+    textarea { min-height: 120px; resize: vertical; }
+
+    /* Footer */
+    footer { padding: 40px 0; color: var(--muted); border-top: 1px solid rgba(255,255,255,.08); margin-top: 40px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; }
+    .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; } .footer-links { justify-content: flex-start; } }
+
+    /* Utilities */
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); color: var(--muted); font-weight: 600; font-size: 12px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Acme home">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Acme</span>
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#showcase">Showcase</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <a class="cta" href="#get-started">Get Started</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="backdrop" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> Ship faster with style</span>
+          <h1>Build beautiful pages with just HTML & CSS.</h1>
+          <p class="lead">A modern, responsive starter you can copy‑paste and customize. No frameworks required—just clean, accessible markup and utility CSS you can extend.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#get-started">Start Free</a>
+            <a class="btn" href="#showcase">See it in action</a>
+          </div>
+        </div>
+        <div class="showcase" id="showcase">
+          <div class="mock">YOUR APP PREVIEW</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <h2 class="section-title">Everything you need to launch</h2>
+        <p class="section-lead">Practical components with tasteful defaults. Swap the copy, adjust colors, and you're live in minutes.</p>
+        <div class="features">
+          <article class="card">
+            <div class="icon" aria-hidden="true">⚡</div>
+            <h3>Fast & Lightweight</h3>
+            <p>No heavy bundles. Just semantic HTML and efficient CSS variables for theming.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🎯</div>
+            <h3>Accessible by Default</h3>
+            <p>Focusable controls, sensible contrast, and keyboard‑friendly navigation baked in.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🧩</div>
+            <h3>Modular Sections</h3>
+            <p>Drop in features, pricing, FAQ, and contact blocks as your project grows.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container band">
+        <div>
+          <span class="pill">New in v1.0</span>
+          <h3 style="margin:10px 0 8px">CSS‑only FAQ, sticky header, and dark/light support</h3>
+          <p style="color:var(--muted)">The template respects the user's color scheme, uses native <code>&lt;details&gt;</code> for disclosure, and ships with smooth‑scrolling anchors.</p>
+          <div style="margin-top:14px" class="hero-actions">
+            <a class="btn primary" href="#pricing">View Pricing</a>
+            <a class="btn" href="#faq">Read FAQ</a>
+          </div>
+        </div>
+        <div class="showcase">
+          <div class="mock">DASHBOARD / SCREENSHOT</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <h2 class="section-title">Simple, transparent pricing</h2>
+        <p class="section-lead">Choose a plan that scales with you. Cancel anytime.</p>
+        <div class="pricing">
+          <article class="card price">
+            <div>
+              <div class="kicker">Starter</div>
+              <div class="amount">$0</div>
+              <p class="muted">For hobby projects.</p>
+            </div>
+            <ul>
+              <li>Basic components</li>
+              <li>Community support</li>
+              <li>MIT License</li>
+            </ul>
+            <a class="btn" href="#get-started">Use Free</a>
+          </article>
+
+          <article class="card price featured" aria-label="Pro plan highlighted">
+            <div>
+              <div class="kicker">Pro</div>
+              <div class="amount">$19<span style="font-size:18px;font-weight:600">/mo</span></div>
+              <p class="muted">For growing teams.</p>
+            </div>
+            <ul>
+              <li>Everything in Starter</li>
+              <li>Extra sections & layouts</li>
+              <li>Email support</li>
+            </ul>
+            <a class="btn primary" href="#get-started">Go Pro</a>
+          </article>
+
+          <article class="card price">
+            <div>
+              <div class="kicker">Enterprise</div>
+              <div class="amount">Custom</div>
+              <p class="muted">For large organizations.</p>
+            </div>
+            <ul>
+              <li>Design reviews</li>
+              <li>Priority support</li>
+              <li>Custom components</li>
+            </ul>
+            <a class="btn" href="#contact">Contact Sales</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <h2 class="section-title">Frequently asked questions</h2>
+        <p class="section-lead">Short, honest answers to help you decide faster.</p>
+        <div class="grid-2">
+          <div>
+            <details>
+              <summary>Can I use this template commercially?</summary>
+              <p>Yes. The copy is yours to modify and the structure is free to use in commercial projects.</p>
+            </details>
+            <details>
+              <summary>Does it work without JavaScript?</summary>
+              <p>Absolutely. All core interactions here are implemented with native HTML & CSS.</p>
+            </details>
+            <details>
+              <summary>How do I customize the colors?</summary>
+              <p>Change the CSS variables at the top of the <code>&lt;style&gt;</code> block (e.g., <code>--brand</code> and <code>--brand-2</code>).</p>
+            </details>
+          </div>
+          <div>
+            <details>
+              <summary>Is there a dark mode?</summary>
+              <p>Yes. It adapts to the user's system theme via <code>prefers-color-scheme</code> and can be extended.</p>
+            </details>
+            <details>
+              <summary>Is this production‑ready?</summary>
+              <p>It's a great starting point—add your analytics, forms handling, and any build tooling you prefer.</p>
+            </details>
+            <details>
+              <summary>Can I remove sections I don't need?</summary>
+              <p>Totally. Each section is modular—delete or reorder as you like.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Let's talk</h2>
+        <p class="section-lead">Want a custom version of this template or help implementing it? Send a message.</p>
+        <div class="grid-2">
+          <form aria-label="Contact form" onsubmit="event.preventDefault(); alert('Thanks! This demo form does not submit.');">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="you@example.com" required>
+            <textarea name="message" placeholder="Tell us about your project" required></textarea>
+            <button class="btn primary" type="submit">Send message</button>
+          </form>
+          <div class="card">
+            <h3>Contact details</h3>
+            <p class="muted">Prefer email? Reach out any time.</p>
+            <ul style="list-style:none;padding:0;margin-top:10px;color:var(--muted);display:grid;gap:10px">
+              <li>✉️ hello@acme.dev</li>
+              <li>📞 +1 (555) 123‑4567</li>
+              <li>🏢 123 Anywhere St, Remote</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="get-started">
+      <div class="container band">
+        <div>
+          <h3 style="margin:0 0 10px">Ready to build?</h3>
+          <p style="color:var(--muted);margin:0 0 12px">Copy this template, change the branding, and launch your idea today.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#">Download</a>
+          <a class="btn" href="#">Documentation</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span class="logo" aria-hidden="true"></span>
+        <span>© <span id="year"></span> Acme, Inc.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Changelog</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tiny enhancement: update year and mobile menu toggle
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const btn = document.getElementById('hamburger');
+    btn?.addEventListener('click', () => {
+      const menu = document.querySelector('.menu');
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+      btn.setAttribute('aria-expanded', menu.style.display === 'flex');
+    });
+  </script>
+</body>
+</html>

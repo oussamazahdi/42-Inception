@@ -4,7 +4,7 @@ up:
 	@mkdir -p /home/ozahdi/data/wordpress
 	@mkdir -p /home/ozahdi/data/mariadb
 	@mkdir -p /home/ozahdi/data/portainer
-	@docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up -d --build
+	@docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up  --build -d
 
 down:
 	@docker-compose -f ./srcs/docker-compose.yml down

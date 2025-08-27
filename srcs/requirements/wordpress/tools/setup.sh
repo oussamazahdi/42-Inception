@@ -2,12 +2,8 @@
 
 set -e
 
-# while ! nc -z mariadb 3306; do
-# 	sleep 1
-# done
-# while ! nc -z redis 6379; do
-# 	sleep 1
-# done
+# mkdir -p /var/www/html
+# chown -R www-data:www-data /var/www/html
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 
@@ -20,28 +16,15 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	chmod +x /usr/local/bin/wp
 
 	cd /var/www/html
-	wp config create \
-		--dbname=$MYSQL_DATABASE \
-		--dbuser=$MYSQL_USER \
-		--dbpass=$MYSQL_PASSWORD \
-		--dbhost=mariadb:3306 \
-		--allow-root \
+	wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD \
+		--dbhost=mariadb:3306 --allow-root --path=/var/www/html
+
+	wp core install --url=$DOMAIN_NAME --title="$WP_TITLE" --admin_user=$WP_ADMIN_USER \
+		--admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL --allow-root \
 		--path=/var/www/html
 
-	wp core install \
-		--url=$DOMAIN_NAME \
-		--title="$WP_TITLE" \
-		--admin_user=$WP_ADMIN_USER \
-		--admin_password=$WP_ADMIN_PASSWORD \
-		--admin_email=$WP_ADMIN_EMAIL \
-		--allow-root \
-		--path=/var/www/html
-
-	wp user create $WP_USER $WP_USER_EMAIL \
-		--role=editor \
-		--user_pass=$WP_USER_PASSWORD \
-		--allow-root \
-		--path=/var/www/html
+	wp user create $WP_USER $WP_USER_EMAIL --role=editor --user_pass=$WP_USER_PASSWORD \
+		--allow-root --path=/var/www/html
 
 	wp config set WP_REDIS_HOST "${REDIS_HOST}" --allow-root
 	wp config set WP_REDIS_PORT 6379 --raw --allow-root
@@ -52,9 +35,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp plugin update redis-cache --allow-root
 	wp redis enable --allow-root
 
-	# chown -R www-data:www-data /var/www/html
-	# find /var/www/html -type d -exec chmod 755 {} \;
-	# find /var/www/html -type f -exec chmod 644 {} \;
 fi
 
 exec php-fpm7.4 -F

@@ -12,12 +12,6 @@ COPY tools/setup.sh /usr/local/bin/setup.sh
 
 RUN chmod +x /usr/local/bin/setup.sh
 
-# RUN useradd -r -s /bin/false inception && \
-#     mkdir -p /var/www/html && \
-#     chown -R inception:inception /var/www/html
-RUN mkdir -p /var/www/html && \
-    chown -R www-data:www-data /var/www/html
-
-EXPOSE 9000
+# EXPOSE 9000
 
 ENTRYPOINT [ "setup.sh" ]

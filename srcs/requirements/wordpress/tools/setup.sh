@@ -2,12 +2,12 @@
 
 set -e
 
-while ! nc -z mariadb 3306; do
-	sleep 1
-done
-while ! nc -z redis 6379; do
-	sleep 1
-done
+# while ! nc -z mariadb 3306; do
+# 	sleep 1
+# done
+# while ! nc -z redis 6379; do
+# 	sleep 1
+# done
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 
@@ -46,18 +46,15 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp config set WP_REDIS_HOST "${REDIS_HOST}" --allow-root
 	wp config set WP_REDIS_PORT 6379 --raw --allow-root
 	wp config set WP_CACHE_KEY_SALT "${DOMAIN_NAME}" --allow-root
-	# wp config set WP_REDIS_PASSWORD "${REDIS_PASSWORD}" --allow-root
-	# wp config set WP_REDIS_CLIENT "${REDIS_USER}" --allow-root
-	
 	wp config set WP_CACHE true --raw --allow-root
 
 	wp plugin install redis-cache --activate --allow-root
 	wp plugin update redis-cache --allow-root
 	wp redis enable --allow-root
 
-	chown -R inception:inception /var/www/html
-	find /var/www/html -type d -exec chmod 755 {} \;
-	find /var/www/html -type f -exec chmod 644 {} \;
+	# chown -R www-data:www-data /var/www/html
+	# find /var/www/html -type d -exec chmod 755 {} \;
+	# find /var/www/html -type f -exec chmod 644 {} \;
 fi
 
 exec php-fpm7.4 -F

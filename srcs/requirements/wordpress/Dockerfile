@@ -1,17 +1,15 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 RUN apt-get update && apt-get install -y \
-    php7.4-fpm php7.4-mysql wget curl \
-    netcat redis-server php-redis
+    php8.2-fpm php8.2-mysql wget curl \
+     redis-server php-redis
 
 RUN mkdir -p /run/php
 
-COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 
 COPY tools/setup.sh /usr/local/bin/setup.sh
 
 RUN chmod +x /usr/local/bin/setup.sh
-
-# EXPOSE 9000
 
 ENTRYPOINT [ "setup.sh" ]

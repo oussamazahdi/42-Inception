@@ -2,9 +2,6 @@
 
 set -e
 
-# mkdir -p /var/www/html
-# chown -R www-data:www-data /var/www/html
-
 if [ ! -f /var/www/html/wp-config.php ]; then
 
 	wget https://wordpress.org/latest.tar.gz -O /tmp/wordpress.tar.gz
@@ -26,6 +23,9 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp user create $WP_USER $WP_USER_EMAIL --role=editor --user_pass=$WP_USER_PASSWORD \
 		--allow-root --path=/var/www/html
 
+	wp theme install twentytwentyfour --allow-root
+	wp theme activate twentytwentyfour --allow-root
+
 	wp config set WP_REDIS_HOST "${REDIS_HOST}" --allow-root
 	wp config set WP_REDIS_PORT 6379 --raw --allow-root
 	wp config set WP_CACHE_KEY_SALT "${DOMAIN_NAME}" --allow-root
@@ -37,4 +37,4 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 
 fi
 
-exec php-fpm7.4 -F
+exec php-fpm8.2 -F

@@ -2,6 +2,8 @@
 
 set -e
 
+sleep 5
+
 service mariadb start
 
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};"
@@ -11,4 +13,4 @@ mysql -u root -e "FLUSH PRIVILEGES;"
 
 service mariadb stop
 
-mysqld_safe
+exec mysqld_safe

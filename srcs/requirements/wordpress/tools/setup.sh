@@ -5,7 +5,7 @@ set -e
 if [ ! -f /var/www/html/wp-config.php ]; then
 
 	wget https://wordpress.org/latest.tar.gz -O /tmp/wordpress.tar.gz
-	tar -xzf /tmp/wordpress.tar.gz -C /tmp
+	tar -xf /tmp/wordpress.tar.gz -C /tmp
 	cp -R /tmp/wordpress/* /var/www/html/
 	rm -rf /tmp/wordpress*
 

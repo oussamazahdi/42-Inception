@@ -107,21 +107,21 @@ volumes:
     driver_opts:
       type: none
       o: 'bind'
-      device: /goinfre/ozahdi/data/wordpress
+      device: /home/ozahdi/data/wordpress
   
   mariadb:
     driver: local
     driver_opts:
       type: none
       o: 'bind'
-      device: /goinfre/ozahdi/data/mariadb
+      device: /home/ozahdi/data/mariadb
   
   portainer:
     name: portainer
     driver: local
     driver_opts:
       type: none
-      device: /goinfre/ozahdi/data/portainer
+      device: /home/ozahdi/data/portainer
       o: bind
 
 networks:

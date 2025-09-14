@@ -26,13 +26,10 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp theme install twentytwentyfour --allow-root
 	wp theme activate twentytwentyfour --allow-root
 
-	wp config set WP_REDIS_HOST "${REDIS_HOST}" --allow-root
-	wp config set WP_REDIS_PORT 6379 --raw --allow-root
-	wp config set WP_CACHE_KEY_SALT "${DOMAIN_NAME}" --allow-root
-	wp config set WP_CACHE true --raw --allow-root
 
 	wp plugin install redis-cache --activate --allow-root
-	wp plugin update redis-cache --allow-root
+	wp config set WP_REDIS_HOST redis --allow-root
+	wp config set WP_REDIS_PORT 6379 --raw --allow-root
 	wp redis enable --allow-root
 
 fi

@@ -12,6 +12,7 @@ down:
 clean: down
 	@docker system prune -af
 	@docker volume prune -f
+	@docker volume rm $$(docker volume ls -q)
 	@sudo rm -rf /home/ozahdi/data
 
 re: clean all

@@ -55,6 +55,7 @@ services:
     ports:
       - "21:21"
       - "20:20"
+      - "30000-30010:30000-30010"
     depends_on:
       - wordpress
     networks:
@@ -84,7 +85,7 @@ services:
       - wordpress
       - mariadb
     ports:
-      - "127.0.0.1:1024:1024"
+      - "127.0.0.1:3000:3000"
     networks:
       - inception
     restart: on-failure
@@ -99,7 +100,7 @@ services:
     restart: on-failure
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - portainer:/data
+      # - portainer:/data
 
 volumes:
   wordpress:
@@ -116,13 +117,13 @@ volumes:
       o: 'bind'
       device: /home/ozahdi/data/mariadb
   
-  portainer:
-    name: portainer
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/ozahdi/data/portainer
-      o: bind
+  # portainer:
+  #   name: portainer
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     device: /home/ozahdi/data/portainer
+  #     o: bind
 
 networks:
   inception:

@@ -1,0 +1,10 @@
+229 Entering Extended Passive Mode (|||42967|)
+ftp: Cant connect to 127.0.0.1:42967: Connection refused
+500 Illegal PORT command.
+ftp: Cant bind for data connection: Address already in use
+ftp> dir
+500 Illegal PORT command.
+ftp> cd 
+500 Illegal PORT command.
+ftp> 
+

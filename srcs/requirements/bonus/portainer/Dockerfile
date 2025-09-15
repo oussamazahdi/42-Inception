@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:oldstable
 
 RUN apt-get update && apt-get install -y wget tar
 RUN wget https://github.com/portainer/portainer/releases/download/2.27.9/portainer-2.27.9-linux-amd64.tar.gz \

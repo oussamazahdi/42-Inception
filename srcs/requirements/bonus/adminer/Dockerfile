@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:oldstable
 
 RUN apt update && apt install -y curl adminer \
     php8.2-fpm  php8.2-mysql  php8.2-cli

@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:oldstable
 
 RUN apt update && apt install -y vsftpd
 

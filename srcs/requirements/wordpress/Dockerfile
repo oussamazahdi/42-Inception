@@ -1,6 +1,6 @@
 FROM debian:oldstable
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
     php8.2-fpm php8.2-mysql wget php-redis redis-server
 
 RUN mkdir -p /run/php

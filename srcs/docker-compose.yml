@@ -1,7 +1,6 @@
-version: '3.8'
-
 services:
   nginx:
+    image: nginx:tar
     container_name: nginx
     build: ./requirements/nginx
     depends_on:
@@ -15,6 +14,7 @@ services:
     restart: on-failure
 
   mariadb:
+    image: mariadb:tar
     container_name: mariadb
     build: ./requirements/mariadb
     restart: on-failure
@@ -26,6 +26,7 @@ services:
       - .env
 
   wordpress:
+    image: wordpress:tar
     container_name: wordpress
     build: ./requirements/wordpress
     depends_on:
@@ -40,6 +41,7 @@ services:
       - wordpress:/var/www/html
 
   redis:
+    image: redis:tar
     container_name: redis
     build: ./requirements/bonus/redis
     ports:
@@ -50,12 +52,11 @@ services:
     env_file:
       - .env
   ftp:
+    image: ftp:tar
     container_name: ftp
     build: ./requirements/bonus/ftp
     ports:
       - "21:21"
-      - "20:20"
-      - "30000-30010:30000-30010"
     depends_on:
       - wordpress
     networks:
@@ -67,6 +68,7 @@ services:
     restart: on-failure
   
   adminer:
+    image: adminer:tar
     container_name: adminer
     build: ./requirements/bonus/adminer
     depends_on:
@@ -78,6 +80,7 @@ services:
     restart: on-failure
   
   static:
+    image: static:tar
     container_name: static
     build: ./requirements/bonus/static
     depends_on:
@@ -91,6 +94,7 @@ services:
     restart: on-failure
 
   portainer:
+    image: portainer:tar
     container_name: portainer
     build: ./requirements/bonus/portainer
     ports:
@@ -100,7 +104,6 @@ services:
     restart: on-failure
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      # - portainer:/data
 
 volumes:
   wordpress:
@@ -116,14 +119,6 @@ volumes:
       type: none
       o: 'bind'
       device: /home/ozahdi/data/mariadb
-  
-  # portainer:
-  #   name: portainer
-  #   driver: local
-  #   driver_opts:
-  #     type: none
-  #     device: /home/ozahdi/data/portainer
-  #     o: bind
 
 networks:
   inception:

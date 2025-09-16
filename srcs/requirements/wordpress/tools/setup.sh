@@ -35,7 +35,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp config set WP_REDIS_HOST redis --allow-root
 	wp config set WP_REDIS_PORT 6379 --raw --allow-root
 	wp redis enable --allow-root
-	wp redis flush-dropin
+	wp redis flush-dropin --allow-root
 	wp redis enable --allow-root
 
 

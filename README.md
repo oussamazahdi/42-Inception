@@ -51,20 +51,20 @@ Create `srcs/.env` before running:
 
 ```env
 MYSQL_DATABASE=wordpress
-MYSQL_USER=wp_user
-MYSQL_PASSWORD=change_me
+MYSQL_USER=
+MYSQL_PASSWORD=
 
 DOMAIN_NAME=ozahdi.42.fr
 WP_TITLE=Inception
-WP_ADMIN_USER=admin
-WP_ADMIN_PASSWORD=change_me
-WP_ADMIN_EMAIL=admin@example.com
-WP_USER=user
-WP_USER_EMAIL=user@example.com
-WP_USER_PASSWORD=change_me
+WP_ADMIN_USER=
+WP_ADMIN_PASSWORD=
+WP_ADMIN_EMAIL=
+WP_USER=
+WP_USER_EMAIL=
+WP_USER_PASSWORD=
 
-FTP_USER=ftpuser
-FTP_PWD=change_me
+FTP_USER=
+FTP_PWD=
 ```
 
 ## Usage
